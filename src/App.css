@@ -116,3 +116,79 @@ table th {
 table td {
   color: #555;
 }
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.set-budget {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.set-budget input {
+  padding: 10px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.set-budget button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.budget-progress {
+  margin-top: 20px;
+}
+
+.progress-bar-container {
+  background-color: #f3f3f3;
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 5px;
+}
+
+.warning {
+  color: red;
+  font-weight: bold;
+}
+
+.category-expense-chart {
+  margin-top: 30px;
+}
+
+.expenses-overview {
+  margin-top: 20px;
+}
+
+.expense-list table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.expense-list th,
+.expense-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.expense-list th {
+  background-color: #f4f4f4;
+}
+
+.add-expense-form select,
+.add-expense-form input {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+}

@@ -1,7 +1,8 @@
-// App.tsx
 import React, { useState } from "react";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
+import BudgetProgress from "./components/BudgetProgress";
+import CategoryExpenseChart from "./components/CategoryExpenseChart";
 import "./App.css";
 
 interface Expense {
@@ -13,30 +14,19 @@ interface Expense {
 const App: React.FC = () => {
   const [monthlyBudget, setMonthlyBudget] = useState<number>(2500);
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const totalExpenses = expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0
   );
-  const remainingBudget = monthlyBudget - totalExpenses;
 
   const handleAddExpense = (expense: Expense) => {
-    if (expense.amount > remainingBudget) {
-      setErrorMessage("There isn't enough budget for this expense.");
-      return;
-    }
-
     setExpenses([...expenses, expense]);
-    setErrorMessage(null); // Clear any previous error message
   };
 
   const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMonthlyBudget(Number(e.target.value));
   };
-
-  const budgetUtilization = (totalExpenses / monthlyBudget) * 100;
-  const showUtilizationWarning = budgetUtilization >= 80;
 
   return (
     <div className="container">
@@ -52,20 +42,17 @@ const App: React.FC = () => {
 
       <ExpenseForm onAddExpense={handleAddExpense} />
 
-      {errorMessage && (
-        <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
-      )}
+      <BudgetProgress
+        totalExpenses={totalExpenses}
+        monthlyBudget={monthlyBudget}
+      />
+
+      <CategoryExpenseChart expenses={expenses} />
 
       <div className="expenses-overview">
         <h3>Expenses Overview</h3>
-        <p>Total Expenses: ${totalExpenses.toFixed(2)}</p>
-        <p>Remaining Budget: ${remainingBudget.toFixed(2)}</p>
-        {showUtilizationWarning && (
-          <p style={{ color: "orange" }}>80% of the budget has been utilized</p>
-        )}
+        <ExpenseList expenses={expenses} />
       </div>
-
-      <ExpenseList expenses={expenses} />
     </div>
   );
 };
